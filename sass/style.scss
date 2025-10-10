@@ -16,8 +16,13 @@ body {
   color: #fedfa6;
   // background: rgb(45, 86, 131);
 
-background: #2D5683;
-background: linear-gradient(180deg, rgba(45, 86, 131, 1) 0%, rgba(34, 71, 107, 1) 56%, rgba(15, 35, 56, 1) 100%);
+  background: #2d5683;
+  background: linear-gradient(
+    180deg,
+    rgba(45, 86, 131, 1) 0%,
+    rgba(34, 71, 107, 1) 56%,
+    rgba(15, 35, 56, 1) 100%
+  );
 
   min-height: 100%;
   font-family: "Noto Sans", sans-serif;
@@ -116,8 +121,7 @@ nav {
   padding: 15px;
   border-radius: 15px;
   z-index: 1000;
-
-  a {
+  .nav-link {
     color: #fedfa6;
     text-decoration: none;
     font-weight: bold;
@@ -233,12 +237,12 @@ section {
       justify-content: flex-end;
       flex-direction: column;
       z-index: 3;
-      p{
+      p {
         margin: 0;
         font-size: 2.5vw;
         text-align: left;
         opacity: 0;
-      transform: translateY(20px);
+        transform: translateY(20px);
       }
       .secondary {
         margin-top: 5px;
@@ -367,7 +371,7 @@ section {
         margin: 0;
 
         opacity: 0;
-            transform: translateY(20px);
+        transform: translateY(20px);
       }
     }
     .qr {
@@ -375,7 +379,7 @@ section {
       flex-direction: column;
       flex: 1;
       flex-wrap: wrap;
-          align-items: center;
+      align-items: center;
       img {
         max-width: 70%;
       }
@@ -384,7 +388,7 @@ section {
         transition: color 0.2s, scale 0.2s; // Добавлена плавность
         color: #fedfa6;
         opacity: 0;
-            transform: translateY(20px);
+        transform: translateY(20px);
         &:hover {
           color: #f4c978;
           scale: 110%;

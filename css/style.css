@@ -15,7 +15,7 @@
 body {
   margin: 0;
   color: #fedfa6;
-  background: #2D5683;
+  background: #2d5683;
   background: linear-gradient(180deg, rgb(45, 86, 131) 0%, rgb(34, 71, 107) 56%, rgb(15, 35, 56) 100%);
   min-height: 100%;
   font-family: "Noto Sans", sans-serif;
@@ -116,7 +116,7 @@ nav {
   border-radius: 15px;
   z-index: 1000;
 }
-nav a {
+nav .nav-link {
   color: #fedfa6;
   text-decoration: none;
   font-weight: bold;
@@ -124,7 +124,7 @@ nav a {
   padding: 5px 15px;
   margin: 0 25px;
 }
-nav a:hover {
+nav .nav-link:hover {
   color: #fcc661;
   background-color: rgba(34, 68, 102, 0.7647058824);
   border-radius: 8px;

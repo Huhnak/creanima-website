@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!(isScrolledDown && lastMouseY < MOUSE_TOP_THRESHOLD)) {
           handleScroll();
         }
-      }, 800);
+      }, 5000);
     });
   });
 
