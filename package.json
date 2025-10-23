@@ -6,12 +6,19 @@
   "scripts": {
     "sass:build": "sass sass/style.scss css/style.css --style compressed",
     "sass:watch": "sass --watch sass/style.scss:css/style.css",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "svg-inliner:watch": "svg-inliner svg_index.html index.html --watch",
+    "dev": "concurrently --kill-others \"npm run sass:watch\" \"npm run svg-inliner:watch\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "sass": "^1.93.2"
+    "concurrently": "^9.2.1",
+    "sass": "^1.93.2",
+    "@huhnak/svg-inliner": "^1.0.2"
+  },
+  "dependencies": {
+    
   }
 }

@@ -320,12 +320,27 @@ section {
           }
         }
       }
+      @keyframes slide-in {
+        0% {
+          transform: rotate(-10deg);
+        }
+
+        50% {
+          transform: rotate(10deg);
+        }
+        100% {
+          transform: rotate(-10deg);
+        }
+      }
       #dialog-narrator {
         z-index: 0;
         user-select: none;
         -webkit-user-drag: none;
         img {
           height: 40vw;
+          animation-name: slide-in;
+          animation-duration: 5s;
+          animation-iteration-count: infinite;
         }
         // transform: translate(30%, 0%) rotate(-20deg);
         // aspect-ratio: 221 / 599;
@@ -461,15 +476,23 @@ section {
       }
     }
     .descriptions {
-      width: 100%;
+      background: #183048d0; /* Чуть темнее и менее прозрачный */
+      border: 1px solid #3a669a; /* Тонкая рамка */
+      box-shadow: 0 0 20px rgba(70, 130, 180, 0.4);
+      width: 50%;
+      transform: translateX(50%);
       display: flex;
       flex-direction: column;
       align-items: center;
       height: 200px;
+      border-radius: 15px;
       .description-item {
+        color: #e0efff;
+        font-family: "Segoe UI", "Roboto", sans-serif; /* Более современный шрифт */
+
         opacity: 0;
         position: absolute;
-        width: 50%;
+        width: 100%;
         height: 200px;
         background: #224466c3;
         padding: 20px;
@@ -477,6 +500,14 @@ section {
         transition: opacity 0.5s ease;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         h3 {
+          color: #fedfa6; /* Золотой или ярко-желтый для заголовка */
+          font-size: 1.5em; /* Немного крупнее */
+          font-weight: 700;
+          text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); /* Небольшая тень для свечения */
+          border-bottom: 2px solid #3a669a; /* Декоративная линия под заголовком */
+          padding-bottom: 5px;
+          margin-bottom: 15px;
+
           margin-top: 0;
           margin-bottom: 10px;
         }
@@ -489,6 +520,31 @@ section {
       .description-item-active {
         opacity: 1 !important;
       }
+      .achievements-list {
+        list-style: none; /* Убрать стандартные маркеры */
+        padding-left: 0;
+        margin-top: 10px;
+      }
+
+      .achievements-list li {
+        margin-bottom: 10px;
+        padding-left: 15px;
+        position: relative;
+      }
+
+      .role {
+        font-weight: bold;
+        color: #66ccff; /* Голубой акцент для выделения категории */
+        display: inline-block;
+        margin-right: 5px;
+      }
+
+      /* Для списка навыков внутри основного списка */
+      .skills-list {
+        list-style-type: disc; /* Вернуть стандартные точки для подсписка */
+        padding-left: 20px;
+        margin-top: 5px;
+      }
     }
   }
 }
@@ -496,16 +552,154 @@ section {
 /* === Команда: стили для .member и .stickman === */
 
 /* === Подвал === */
+/* --- Стили для футера (Взяты из вашего примера) --- */
 footer {
-  background: #0a1f33;
-  text-align: center;
-  padding: 30px 20px;
+  background: #0a1f33; /* Ваш цвет из примера */
+  padding: 50px 20px;
   width: 100%;
   box-sizing: border-box;
-  p {
+  color: #ccc;
+  font-size: 0.9rem;
+  * {
+    position: relative;
+    z-index: 1;
+  }
+  /* Стили для текста поддержки в верхней части футера */
+  .footer-top-text {
+    text-align: left;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #1a3a5e; /* Разделительная линия */
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #aaa;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 40px; /* Отступ перед нижним блоком */
+  }
+
+  .footer-column {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  /* Стили для логотипа и копирайта */
+  .footer-info {
+    flex-basis: 250px;
+    flex-grow: 2;
+  }
+
+  .footer-logo {
+    width: 80px;
+    height: 80px;
+    fill: #e0ca9b;
+    margin-bottom: 20px;
+    /* Убедитесь, что используете класс .footer-logo, если используете SVG, 
+       или используйте img.footer-logo, если используете изображение */
+  }
+
+  .copyright {
     margin: 0;
     font-size: 0.9rem;
     color: #ccc;
+  }
+
+  /* Стили для заголовков колонок */
+  .footer-column h4 {
+    margin: 0 0 15px 0;
+    font-size: 1rem;
+    color: #e0ca9b;
+    text-transform: uppercase;
+  }
+
+  /* Стили для списков ссылок */
+  .footer-column ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-column li {
+    margin-bottom: 10px;
+  }
+
+  .footer-column a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-column a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  /* Особые стили для списка соцсетей */
+  .footer-social li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-social a {
+    font-weight: bold;
+  }
+
+  .footer-social small {
+    font-size: 0.8em;
+    color: #888;
+    padding-top: 2px; /* Уменьшил отступ */
+  }
+
+  /* Стили для нижнего блока с деталями (ИНН/ОГРН) */
+  .footer-bottom-details {
+    padding-top: 20px;
+    border-top: 1px solid #1a3a5e; /* Разделительная линия */
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #aaa;
+  }
+  .footer-bottom-details p {
+    margin: 0 0 5px 0;
+  }
+
+  /* Адаптивность для мобильных устройств */
+  @media (max-width: 768px) {
+    .footer-columns {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .footer-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-column {
+      min-width: 100%;
+      text-align: center; /* Центрируем колонки на мобильных */
+    }
+
+    .footer-column h4,
+    .footer-column ul {
+      text-align: center;
+    }
+
+    .footer-social li {
+      align-items: center;
+    }
   }
 }
 
@@ -521,7 +715,7 @@ footer {
 }
 
 .carousel-cell {
-  width: 80%;
+  // width: 80%;
   height: 700px;
   /* flex-box, center image in cell */
   display: -webkit-box;
@@ -532,6 +726,21 @@ footer {
   justify-content: center;
   -webkit-align-items: center;
   align-items: center;
+  .carousel-slide-number {
+    position: absolute;
+    z-index: 5;
+    font-size: 2rem;
+    text-shadow: 2px 2px 3px #000000;
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    -webkit-transform: scale(0.85);
+    transform: scale(0.85);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s, transform 0.3s,
+      -webkit-filter 0.3s, filter 0.3s;
+    transition: opacity 0.3s, transform 0.3s, filter 0.3s, right 0.3s, top 0.3s;
+    left: 10%;
+    top: 10%;
+  }
 }
 .carousel-cell img {
   border-radius: 15px;
@@ -556,6 +765,12 @@ footer {
   -webkit-filter: none;
   filter: none;
 }
+.carousel-cell.is-selected > .carousel-slide-number {
+  -webkit-filter: none;
+  filter: none;
+  left: 15px;
+  top: 15px;
+}
 
 @media screen and (min-width: 768px) {
   .carousel-cell {
@@ -563,36 +778,47 @@ footer {
   }
 }
 
-@media screen and (min-width: 960px) {
-  .carousel-cell {
-    width: 80%;
-  }
+// @media screen and (min-width: 960px) {
+//   .carousel-cell {
+//     width: 80%;
+//   }
+// }
+
+.flickity-button {
+}
+.flickity-prev-next-button.previous {
+  left: auto;
+  transform: translateX(-110%) translateY(50%);
+}
+.flickity-prev-next-button.next {
+  right: auto;
+  transform: translateX(10%) translateY(50%);
 }
 .flickity-prev-next-button {
   width: 60px;
   height: 60px;
-  background: transparent;
   opacity: 0.6;
+  top: auto;
 }
-.flickity-prev-next-button:hover {
-  background: transparent;
-  opacity: 1;
-}
-/* arrow color */
-.flickity-prev-next-button .arrow {
-  fill: white;
-}
-.flickity-prev-next-button.no-svg {
-  color: white;
-}
-/* closer to edge */
-.flickity-prev-next-button.previous {
-  left: 0;
-}
-.flickity-prev-next-button.next {
-  right: 0;
-}
-/* hide disabled button */
-.flickity-prev-next-button:disabled {
-  display: none;
-}
+// .flickity-prev-next-button:hover {
+//   background: transparent;
+//   opacity: 1;
+// }
+// /* arrow color */
+// .flickity-prev-next-button .arrow {
+//   fill: white;
+// }
+// .flickity-prev-next-button.no-svg {
+//   color: white;
+// }
+// /* closer to edge */
+// .flickity-prev-next-button.previous {
+//   left: 0;
+// }
+// .flickity-prev-next-button.next {
+//   right: 0;
+// }
+// /* hide disabled button */
+// .flickity-prev-next-button:disabled {
+//   display: none;
+// }
