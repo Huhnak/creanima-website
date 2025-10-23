@@ -603,29 +603,6 @@ footer .footer-bottom-details p {
 footer {
   /* Адаптивность для мобильных устройств */
 }
-@media (max-width: 768px) {
-  footer .footer-columns {
-    flex-direction: column;
-    gap: 40px;
-  }
-  footer .footer-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  footer .footer-column {
-    min-width: 100%;
-    text-align: center; /* Центрируем колонки на мобильных */
-  }
-  footer .footer-column h4,
-  footer .footer-column ul {
-    text-align: center;
-  }
-  footer .footer-social li {
-    align-items: center;
-  }
-}
 
 /* === Констелляция === */
 #constellation {
@@ -716,6 +693,134 @@ footer {
   height: 60px;
   opacity: 0.6;
   top: auto;
+}
+
+/* === НАЧАЛО: БЛОК АДАПТАЦИИ ДЛЯ МОБИЛЬНЫХ === */
+@media (max-width: 768px) {
+  /* --- Общие секции --- */
+  section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  section .title-wrapper {
+    margin-left: 0;
+    transform: none;
+    width: 90%;
+    margin: 0 auto 20px auto;
+    justify-content: center;
+    gap: 10px;
+  }
+  section .title-wrapper h2 {
+    font-size: 1.8rem;
+  }
+  section .title-wrapper .star {
+    width: 80px;
+  }
+  /* --- Навигация --- */
+  nav {
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    margin: 10px auto;
+    gap: 15px;
+    padding: 10px;
+  }
+  nav .nav-links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin: 0;
+  }
+  nav .nav-link {
+    font-size: 1rem;
+    margin: 0 5px;
+    padding: 5px 10px;
+  }
+  nav .nav-link:hover {
+    scale: 1.1;
+  }
+  /* --- Секция: #hero --- */
+  section#hero .hero-box {
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+    padding: 20px;
+    gap: 20px;
+  }
+  section#hero .hero-box::before {
+    height: 100%;
+    width: 95%;
+  }
+  section#hero .hero-text,
+  section#hero .hero-logo {
+    width: 100%;
+    height: auto;
+  }
+  section#hero .hero-text {
+    text-align: center;
+  }
+  section#hero .hero-text p {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  section#hero .hero-text .secondary {
+    font-size: 1.2rem;
+  }
+  /* --- Секция: #about --- */
+  section#about .narrator-wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+  section#about .narrator-wrapper #dialog-cloud {
+    width: 95vw;
+    order: 1;
+    padding: 8% 12% 8% 10%;
+  }
+  section#about .narrator-wrapper #dialog-cloud div p {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+  section#about .narrator-wrapper #dialog-narrator {
+    order: 2;
+  }
+  section#about .narrator-wrapper #dialog-narrator img {
+    height: 60vw;
+  }
+  /* --- Секция: #ar --- */
+  section#ar .flex-row {
+    flex-direction: column;
+    width: 90%;
+  }
+  section#ar .qr a {
+    font-size: 1.5rem;
+  }
+  /* --- Секция: #works (Карусель) --- */
+  section#works .carousel-cell {
+    height: 300px;
+  }
+  section#works .flickity-prev-next-button {
+    width: 40px;
+    height: 40px;
+  }
+  /* --- Секция: #team --- */
+  section#team .members svg {
+    width: 95%;
+  }
+  section#team .descriptions {
+    width: 100%;
+    transform: none;
+    margin: 0 auto;
+    height: auto;
+    min-height: 240px;
+  }
+  section#team .descriptions .description-item {
+    height: auto;
+    min-height: 240px;
+  }
+  section#team .descriptions .description-item h3 {
+    font-size: 1.2rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -674,33 +674,33 @@ footer {
   }
 
   /* Адаптивность для мобильных устройств */
-  @media (max-width: 768px) {
-    .footer-columns {
-      flex-direction: column;
-      gap: 40px;
-    }
+  // @media (max-width: 768px) {
+  //   .footer-columns {
+  //     flex-direction: column;
+  //     gap: 40px;
+  //   }
 
-    .footer-info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
+  //   .footer-info {
+  //     display: flex;
+  //     flex-direction: column;
+  //     align-items: center;
+  //     text-align: center;
+  //   }
 
-    .footer-column {
-      min-width: 100%;
-      text-align: center; /* Центрируем колонки на мобильных */
-    }
+  //   .footer-column {
+  //     min-width: 100%;
+  //     text-align: center; /* Центрируем колонки на мобильных */
+  //   }
 
-    .footer-column h4,
-    .footer-column ul {
-      text-align: center;
-    }
+  //   .footer-column h4,
+  //   .footer-column ul {
+  //     text-align: center;
+  //   }
 
-    .footer-social li {
-      align-items: center;
-    }
-  }
+  //   .footer-social li {
+  //     align-items: center;
+  //   }
+  // }
 }
 
 /* === Констелляция === */
@@ -822,3 +822,174 @@ footer {
 // .flickity-prev-next-button:disabled {
 //   display: none;
 // }
+
+
+
+
+/* === НАЧАЛО: БЛОК АДАПТАЦИИ ДЛЯ МОБИЛЬНЫХ === */
+@media (max-width: 768px) {
+  /* --- Общие секции --- */
+  section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    .title-wrapper {
+      // Убираем сложные отступы и центрируем заголовок
+      margin-left: 0;
+      transform: none;
+      width: 90%; // Даем немного "воздуха" по бокам
+      margin: 0 auto 20px auto; // Центрируем сам блок
+      justify-content: center; // Центрируем flex-элементы (звезду и h2)
+      gap: 10px;
+
+      h2 {
+        font-size: 1.8rem; // Уменьшаем шрифт заголовков
+      }
+
+      .star {
+        width: 80px; // Уменьшаем звезду
+      }
+    }
+  }
+
+  /* --- Навигация --- */
+  nav {
+    // Складываем лого и ссылки в колонку
+    flex-direction: column;
+    align-items: center;
+    width: 95%; // Делаем почти на всю ширину
+    margin: 10px auto; // Центрируем
+    gap: 15px;
+    padding: 10px;
+
+    .nav-links {
+      // Ссылки тоже ставим в колонку (или можно оставить row и разрешить перенос)
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap; // Позволяем ссылкам переноситься на новую строку
+      justify-content: center;
+      gap: 5px;
+      margin: 0;
+    }
+
+    .nav-link {
+      font-size: 1rem; // Уменьшаем шрифт
+      margin: 0 5px; // Уменьшаем отступы
+      padding: 5px 10px;
+      &:hover {
+        scale: 1.1; // Уменьшаем эффект наведения
+      }
+    }
+  }
+
+  /* --- Секция: #hero --- */
+  section#hero {
+    .hero-box {
+      // Ставим текст и лого друг под другом
+      flex-direction: column;
+      height: auto; // Убираем фикс. высоту, пусть растет под контент
+      width: 90%;
+      padding: 20px;
+      gap: 20px;
+
+      &::before {
+        height: 100%; // Фон подстраивается под новую высоту
+        width: 95%;
+      }
+    }
+
+    .hero-text,
+    .hero-logo {
+      width: 100%; // Оба блока теперь на 100% ширины
+      height: auto;
+    }
+
+    .hero-text {
+      text-align: center; // Центрируем текст на мобильных
+      p {
+        font-size: 1.5rem; // Заменяем vw на rem для стабильности
+        text-align: center;
+      }
+      .secondary {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  /* --- Секция: #about --- */
+  section#about {
+    .narrator-wrapper {
+      // Ставим диктора и облако друг под другом
+      flex-direction: column;
+      gap: 10px;
+
+      #dialog-cloud {
+        width: 95vw; // Облако почти на всю ширину
+        order: 1; // Облако будет первым
+        padding: 8% 12% 8% 10%; // Можно чуть-чуть подстроить padding
+        div p {
+          // Увеличиваем шрифт на мобильных, т.к. clamp() мог сделать его мелким
+          font-size: clamp(16px, 4vw, 22px);
+        }
+      }
+
+      #dialog-narrator {
+        order: 2; // Диктор вторым
+        img {
+          height: 60vw; // Делаем диктора поменьше
+        }
+      }
+    }
+  }
+
+  /* --- Секция: #ar --- */
+  section#ar {
+    .flex-row {
+      // Ставим телефон и QR-код друг под другом
+      flex-direction: column;
+      width: 90%;
+    }
+
+    .qr a {
+      font-size: 1.5rem; // Значительно уменьшаем шрифт ссылки
+    }
+  }
+
+  /* --- Секция: #works (Карусель) --- */
+  section#works {
+    .carousel-cell {
+      height: 300px; // !! Важно: Уменьшаем высоту слайда
+    }
+
+    // Кнопки карусели
+    .flickity-prev-next-button {
+      width: 40px;
+      height: 40px;
+    }
+
+  }
+
+  /* --- Секция: #team --- */
+  section#team {
+    .members svg {
+      width: 95%; // SVG с командой делаем шире
+    }
+
+    .descriptions {
+      // Блок описания делаем шире и центрируем
+      width: 100%;
+      transform: none; // Убираем сдвиг
+      margin: 0 auto; // Центрируем
+      height: auto; // Позволяем блоку расти по высоте
+      min-height: 240px; // Задаем минимальную высоту
+
+      .description-item {
+        height: auto; // Описания тоже растут по контенту
+        min-height: 240px;
+        h3 {
+          font-size: 1.2rem; // Уменьшаем заголовок
+        }
+      }
+    }
+  }
+}
