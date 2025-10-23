@@ -13,6 +13,7 @@
 }
 
 body {
+  overflow-x: hidden;
   margin: 0;
   color: #fedfa6;
   background: #2d5683;
@@ -135,7 +136,50 @@ nav .logo {
   width: 50px;
   height: 50px;
 }
-
+nav .nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1001;
+  position: relative;
+}
+nav .nav-toggle .hamburger-icon {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background: #fedfa6;
+  transition: all 0.2s ease-in-out;
+}
+nav .nav-toggle .hamburger-icon::before, nav .nav-toggle .hamburger-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #fedfa6;
+  transition: all 0.2s ease-in-out;
+}
+nav .nav-toggle .hamburger-icon::before {
+  top: -7px;
+}
+nav .nav-toggle .hamburger-icon::after {
+  bottom: -7px;
+}
+nav {
+  /* === Стили для "открытого" состояния (крестик) === */
+}
+nav .nav-open .hamburger-icon {
+  background: transparent;
+}
+nav .nav-open .hamburger-icon::before {
+  transform: translateY(7px) rotate(45deg);
+}
+nav .nav-open .hamburger-icon::after {
+  transform: translateY(-7px) rotate(-45deg);
+}
 /* === Секции === */
 section {
   text-align: center;
@@ -264,7 +308,7 @@ section#about .narrator-wrapper {
   flex-direction: row;
 }
 section#about .narrator-wrapper #dialog-cloud {
-  background-image: url("../dialogue.svg");
+  background-image: url("../src/dialog-right-arrow.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -718,40 +762,69 @@ footer {
   }
   /* --- Навигация --- */
   nav {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    width: 95%;
     margin: 10px auto;
-    gap: 15px;
     padding: 10px;
+    gap: 0;
+    width: 64px !important;
+    transform: translateX(calc(50vw - 50% - 10px));
+  }
+  nav .nav-toggle {
+    display: block;
   }
   nav .nav-links {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(34, 68, 102, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
     margin: 0;
+    z-index: 1000;
+  }
+  nav.nav-open .nav-links {
+    transform: translate(calc(74px - 100vw), -10px);
   }
   nav .nav-link {
-    font-size: 1rem;
-    margin: 0 5px;
-    padding: 5px 10px;
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 10px 20px;
   }
   nav .nav-link:hover {
     scale: 1.1;
   }
+  nav .logo {
+    display: none;
+  }
+  nav {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+  }
   /* --- Секция: #hero --- */
   section#hero .hero-box {
     flex-direction: column;
-    height: auto;
+    height: 60vh;
     width: 90%;
     padding: 20px;
     gap: 20px;
   }
   section#hero .hero-box::before {
     height: 100%;
-    width: 95%;
+    width: 94%;
+    background-position: 20% 90%;
   }
   section#hero .hero-text,
   section#hero .hero-logo {
@@ -774,12 +847,13 @@ footer {
     gap: 10px;
   }
   section#about .narrator-wrapper #dialog-cloud {
+    background-image: url("../src/dialog-bottom-arrow.svg");
     width: 95vw;
     order: 1;
     padding: 8% 12% 8% 10%;
   }
   section#about .narrator-wrapper #dialog-cloud div p {
-    font-size: clamp(16px, 4vw, 22px);
+    font-size: clamp(16px, 2vw, 20px);
   }
   section#about .narrator-wrapper #dialog-narrator {
     order: 2;
@@ -803,12 +877,18 @@ footer {
     width: 40px;
     height: 40px;
   }
+  section#works .flickity-prev-next-button.next {
+    transform: translateX(10%) translateY(80%);
+  }
+  section#works .flickity-prev-next-button.previous {
+    transform: translateX(-110%) translateY(80%);
+  }
   /* --- Секция: #team --- */
   section#team .members svg {
     width: 95%;
   }
   section#team .descriptions {
-    width: 100%;
+    width: 95%;
     transform: none;
     margin: 0 auto;
     height: auto;
@@ -817,6 +897,7 @@ footer {
   section#team .descriptions .description-item {
     height: auto;
     min-height: 240px;
+    width: 95%;
   }
   section#team .descriptions .description-item h3 {
     font-size: 1.2rem;

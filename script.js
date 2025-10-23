@@ -1,3 +1,6 @@
+function isMobile() {
+    return window.matchMedia("(max-width: 768px)").matches;
+}
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
@@ -284,13 +287,16 @@ window.addEventListener("scroll", () => {
   }
 });
 
-setTimeout(resizeCanvas, 100);
+setTimeout(resizeCanvas, 200);
 window.addEventListener("resize", resizeCanvas);
 
 // === ЛОГИКА ДИНАМИЧЕСКОЙ НАВИГАЦИОННЙ ПАНЕЛИ ===
 
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(sections[0][1])[0].classList.add("glowing-star");
+  if (isMobile()) {
+        return; 
+    }
   const navbar = document.getElementById("navbar");
   if (!navbar) return;
 
@@ -370,7 +376,6 @@ document.addEventListener("DOMContentLoaded", () => {
             selectedIndex = index;
             updateSelection();
         })});
-
     const updateSelection = () => {
         persons.forEach((person, index) => {
             if (index === selectedIndex) {
@@ -382,6 +387,8 @@ document.addEventListener("DOMContentLoaded", () => {
             } 
         });
     }
+    
+    updateSelection();
 
 });
 
@@ -499,6 +506,34 @@ document.addEventListener('DOMContentLoaded', () => {
         clearProps: "visibility",
     }, "<0.5");
 
+
+    // === НАВИГАЦИОННАЯ ПАНЕЛЬ НА ТЕЛЕФОНЕ ===
+
+    const nav = document.getElementById("navbar");
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinksContainer = document.querySelector(".nav-links");
+    const navLinks = document.querySelectorAll(".nav-link"); // Все ссылки в меню
+
+    if (navToggle && navLinksContainer && nav) {
+        
+        // 1. Открытие/закрытие по клику на гамбургер
+        navToggle.addEventListener("click", () => {
+            // Добавляем класс .nav-open на <nav>
+            nav.classList.toggle("nav-open");
+            
+            // Блокируем/разблокируем прокрутку страницы
+            document.body.classList.toggle("no-scroll");
+        });
+
+        // 2. Закрытие меню по клику на любую из ссылок
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                // Убираем классы, чтобы закрыть меню
+                nav.classList.remove("nav-open");
+                document.body.classList.remove("no-scroll");
+            });
+        });
+    }
 });
 
 

@@ -12,6 +12,7 @@
 }
 // === Общие стили ===
 body {
+  overflow-x: hidden;
   margin: 0;
   color: #fedfa6;
   // background: rgb(45, 86, 131);
@@ -140,6 +141,69 @@ nav {
   .logo {
     width: 50px;
     height: 50px;
+  }
+
+  .nav-toggle {
+    display: none; // Скрыт на десктопе
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001; // Должен быть выше, чем .nav-links
+    position: relative; // Для позиционирования крестика
+
+    .hamburger-icon {
+      display: block;
+      position: relative;
+      width: 24px;
+      height: 2px;
+      background: #fedfa6; // Цвет иконки (золотой)
+      transition: all 0.2s ease-in-out;
+
+      // Две другие полоски
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #fedfa6;
+        transition: all 0.2s ease-in-out;
+      }
+
+      &::before {
+        top: -7px; // Полоска сверху
+      }
+
+      &::after {
+        bottom: -7px; // Полоска снизу
+      }
+    }
+  }
+
+  /* === Стили для "открытого" состояния (крестик) === */
+  // Этот класс будет добавляться на <nav>
+  .nav-open {
+    .hamburger-icon {
+      background: transparent; // Средняя полоска исчезает
+
+      &::before {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      &::after {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+    }
+
+    // Блокируем прокрутку страницы, когда меню открыто
+    + .container,
+    + #constellation,
+    + #starfield-parallax {
+      // Этот трюк не сработает, так как body не является соседом
+      // Вместо этого мы будем добавлять класс на <body> через JS
+    }
   }
 }
 
@@ -293,7 +357,7 @@ section {
       flex-direction: row;
 
       #dialog-cloud {
-        background-image: url("../dialogue.svg");
+        background-image: url("../src/dialog-right-arrow.svg");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -823,9 +887,6 @@ footer {
 //   display: none;
 // }
 
-
-
-
 /* === НАЧАЛО: БЛОК АДАПТАЦИИ ДЛЯ МОБИЛЬНЫХ === */
 @media (max-width: 768px) {
   /* --- Общие секции --- */
@@ -854,32 +915,66 @@ footer {
 
   /* --- Навигация --- */
   nav {
-    // Складываем лого и ссылки в колонку
-    flex-direction: column;
+    flex-direction: row; // Лого и кнопка должны быть в ряду
+    justify-content: space-between; // Разносим их по краям
     align-items: center;
-    width: 95%; // Делаем почти на всю ширину
-    margin: 10px auto; // Центрируем
-    gap: 15px;
+    margin: 10px auto;
     padding: 10px;
+    gap: 0;
+    width: 64px !important;
+    transform: translateX(calc(50vw - 50% - 10px));
+    .nav-toggle {
+      display: block; // Показываем кнопку гамбургера
+    }
 
     .nav-links {
-      // Ссылки тоже ставим в колонку (или можно оставить row и разрешить перенос)
+      // --- Стили меню-контейнера ---
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap; // Позволяем ссылкам переноситься на новую строку
-      justify-content: center;
-      gap: 5px;
+      flex-direction: column; // Ссылки теперь строго в колонку
+      align-items: center;
+      justify-content: center; // Центрируем по вертикали
+      gap: 30px; // Увеличим отступ между ссылками
+
+      // --- Позиционирование (скрытое состояние) ---
+      position: fixed; // Фиксируем относительно вьюпорта
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh; // На весь экран
+
+      // Красивый фон с размытием
+      background: rgba(34, 68, 102, 0.95); // Фон чуть плотнее
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); // Для Safari
+
+      // --- Анимация ---
+      transform: translateX(100%); // Скрываем за правым краем
+      transition: transform 0.3s ease-in-out;
+
       margin: 0;
+      z-index: 1000; // Под кнопкой, но над контентом
+    }
+
+    // --- "Открытое" состояние ---
+    &.nav-open .nav-links {
+      transform: translate(calc(74px - 100vw), -10px);
     }
 
     .nav-link {
-      font-size: 1rem; // Уменьшаем шрифт
-      margin: 0 5px; // Уменьшаем отступы
-      padding: 5px 10px;
+      font-size: 1.5rem; // Делаем ссылки крупными и заметными
+      margin: 0;
+      padding: 10px 20px;
       &:hover {
-        scale: 1.1; // Уменьшаем эффект наведения
+        scale: 1.1;
       }
     }
+    .logo {
+      display: none;
+    }
+    flex-direction: row; // Лого и кнопка должны быть в ряду
+    justify-content: space-between; // Разносим их по краям
+    align-items: center;
+    width: 95%;
   }
 
   /* --- Секция: #hero --- */
@@ -887,14 +982,16 @@ footer {
     .hero-box {
       // Ставим текст и лого друг под другом
       flex-direction: column;
-      height: auto; // Убираем фикс. высоту, пусть растет под контент
+      height: 60vh;
+          
       width: 90%;
       padding: 20px;
       gap: 20px;
 
       &::before {
         height: 100%; // Фон подстраивается под новую высоту
-        width: 95%;
+        width: 94%;
+        background-position: 20% 90%;
       }
     }
 
@@ -924,12 +1021,13 @@ footer {
       gap: 10px;
 
       #dialog-cloud {
+        background-image: url("../src/dialog-bottom-arrow.svg");
         width: 95vw; // Облако почти на всю ширину
         order: 1; // Облако будет первым
         padding: 8% 12% 8% 10%; // Можно чуть-чуть подстроить padding
         div p {
           // Увеличиваем шрифт на мобильных, т.к. clamp() мог сделать его мелким
-          font-size: clamp(16px, 4vw, 22px);
+          font-size: clamp(16px, 2vw, 20px);
         }
       }
 
@@ -965,8 +1063,14 @@ footer {
     .flickity-prev-next-button {
       width: 40px;
       height: 40px;
+      
     }
-
+    .flickity-prev-next-button.next{
+        transform: translateX(10%) translateY(80%);
+      }
+      .flickity-prev-next-button.previous{
+            transform: translateX(-110%) translateY(80%);
+      }
   }
 
   /* --- Секция: #team --- */
@@ -977,7 +1081,7 @@ footer {
 
     .descriptions {
       // Блок описания делаем шире и центрируем
-      width: 100%;
+      width: 95%;
       transform: none; // Убираем сдвиг
       margin: 0 auto; // Центрируем
       height: auto; // Позволяем блоку расти по высоте
@@ -986,6 +1090,7 @@ footer {
       .description-item {
         height: auto; // Описания тоже растут по контенту
         min-height: 240px;
+        width: 95%;
         h3 {
           font-size: 1.2rem; // Уменьшаем заголовок
         }
